@@ -16,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/RaissaVasconcelos/Clean_Node_API/issues"
   },
-  "homepage": "https://github.com/RaissaVasconcelos/Clean_Node_API#readme"
+  "homepage": "https://github.com/RaissaVasconcelos/Clean_Node_API#readme",
+  "devDependencies": {
+    "git-commit-msg-linter": "^4.5.0",
+    "i": "^0.3.7",
+    "npm": "^9.4.2"
+  }
 }
