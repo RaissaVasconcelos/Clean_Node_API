@@ -7,14 +7,20 @@ interface SutTypes {
   emailValidatorStub: EmailValidator
 }
 
-const makeSut = (): SutTypes => {
-  // injetando uma classe mockada para validação dos testes não é uma classe de produção
+const makeEmailValidator = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator{
     isValid(email: string): boolean {
       return true;
     }
   }
-  const emailValidatorStub = new EmailValidatorStub()
+  
+  return new EmailValidatorStub()
+}
+
+const makeSut = (): SutTypes => {
+  // injetando uma classe mockada para validação dos testes não é uma classe de produção
+  
+  const emailValidatorStub = makeEmailValidator()
   const sut = new SingUpController(emailValidatorStub)
   return {
     sut,
@@ -128,8 +134,10 @@ describe('SignUpController', () => {
         throw new Error();
       }
     }
-    const emailValidatorStub = new EmailValidatorStub()
-    const sut = new SingUpController(emailValidatorStub)
+    const { sut, emailValidatorStub } = makeSut()
+    jest.spyOn(emailValidatorStub, 'isValid').mockImplementationOnce(() => {
+      throw new Error()
+    })
 
     const httpRequest = {
       body: {
