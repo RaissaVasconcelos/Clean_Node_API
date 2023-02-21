@@ -228,4 +228,28 @@ describe('SignUpController', () => {
     expect(httpResponse.statusCode).toBe(500)
     expect(httpResponse.body).toEqual(new ServerError())
   })
+
+  it('Should return 200 if data valid is provided', () => {
+    // sut -> system under test
+    const { sut } = makeSut()
+    // em testes de resultado positivo não preciso mockar porque por padrão já é esperado aquele retorno
+
+    const httpRequest = {
+      body: {
+        name: 'name_validate',
+        email: 'email_validate',
+        password: 'password_validate',
+        passwordValidate: 'password_validate'
+      }
+    }
+    const httpResponse = sut.handle(httpRequest)
+
+    expect(httpResponse.statusCode).toBe(200)
+    expect(httpResponse.body).toEqual({
+      id: 'id_validate',
+      name: 'name_validate',
+      email: 'email_validate',
+      password: 'password_validate'
+    })
+  })
 })
